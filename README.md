@@ -1,4 +1,4 @@
-# Ark Contract Execution Services (ACES) Developer Guide
+# ACES Developer Guide
 
 ## Deploying your Node
 
