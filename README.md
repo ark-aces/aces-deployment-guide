@@ -132,9 +132,7 @@ Install the application under `/apps`:
 
 ```
 sudo mkdir /apps
-sudo mkdir /apps/aces-backend
-cd /apps/aces-backend
-git clone https://github.com/bradyo/ark-java-smart-bridge-listener.git
+git clone https://github.com/ark-aces/aces-backend.git
 ```
 
 Install application.yml configuration file under `/etc/aces-backend`:
@@ -217,7 +215,7 @@ Description=Aces Backend
 
 [Service]
 Restart=always
-WorkingDirectory=/apps/aces-backend/ark-java-smart-bridge-listener
+WorkingDirectory=/apps/aces-backend
 ExecStart=/usr/bin/mvn spring-boot:run -Dspring.config.location=file:/etc/aces-backend/application.yml
 
 [Install]
@@ -226,7 +224,7 @@ WantedBy=multi-user.target
 Install npm dependencies:
 
 ```
-cd /apps/aces-backend/ark-java-smart-bridge-listener/bin
+cd /apps/aces-backend/bin
 npm install
 ```
 
@@ -243,21 +241,18 @@ sudo service aces-backend start
 Install the application under `/apps`:
 
 ```
-sudo mkdir /apps/aces-frontend
-cd /apps/aces-frontend
-git clone https://github.com/bradyo/aces-app.git
+cd /apps
+git clone https://github.com/ark-aces/aces-frontend.git
 ```
-todo: set up api url via config and point that to the backend-api
-  https://github.com/bradyo/aces-app/blob/master/src/app/aces-server-config.ts#L8
 
 Copy prod configuration template into custom configuration file:
 ```
-cd /apps/aces-frontend/aces-app
+cd /apps/aces-frontend
 cp src/environments/environment.prod.ts src/environments/environment.custom.ts
 ```
-If using an Ethereum Testnet, copy the following into `/apps/aces-frontend/aces-app/src/environments/environment.custom.ts`:
+If using an Ethereum Testnet, copy the following into `/apps/aces-frontend/src/environments/environment.custom.ts`:
 ```
-vim /apps/aces-frontend/aces-app/src/environments/environment.custom.ts
+vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
 ```
 export const environment = {
@@ -273,7 +268,7 @@ export const environment = {
 ```
 If using the Ethereum Mainnet, copy the following into /apps/aces-frontend/aces-app/src/environments/environment.custom.ts:
 ```
-vim /apps/aces-frontend/aces-app/src/environments/environment.custom.ts
+vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
 ```
 export const environment = {
@@ -289,13 +284,13 @@ export const environment = {
 Install angular for the front-end UI
 
 ```
-cd /apps/aces-frontend/aces-app
+cd /apps/aces-frontend
 npm install -g @angular/cli
 npm install
 ```
 Update the baseURL in the front-end config, replacing the aces-ark.io url with your server ip.
 ```
-vim /apps/aces-frontend/aces-app/src/app/aces-server-config.ts
+vim /apps/aces-frontend/src/app/aces-server-config.ts
 ```
 
 It should appear something like this:
@@ -338,7 +333,7 @@ Then add the snippet below under the `server` directive.
 
 ```
 location /aces-app/ {
-    alias /apps/aces-frontend/aces-app/dist/;
+    alias /apps/aces-frontend/dist/;
     try_files $uri $uri/ /aces-app/;
 }
 
