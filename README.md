@@ -132,6 +132,7 @@ Install the application under `/apps`:
 
 ```
 sudo mkdir /apps
+cd /apps
 git clone https://github.com/ark-aces/aces-backend.git
 ```
 
