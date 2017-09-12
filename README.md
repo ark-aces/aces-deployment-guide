@@ -143,7 +143,7 @@ mkdir /etc/aces-backend
 ```
 
 Copy `src/main/resources/application.yml` file over into `/etc/aces-backend` and replace
-wallet configurations with your own Eth and Ark wallet addresses and passphrase. Ensure that the etheruem address is quoted.
+wallet configurations with your own Ethereum and Ark addresses and passphrases/passwords. Ensure that the values remain quoted.
 
 ```
 vim /etc/aces-backend/application.yml
@@ -245,13 +245,12 @@ Install the application under `/apps`:
 cd /apps
 git clone https://github.com/ark-aces/aces-frontend.git
 ```
-
 Copy prod configuration template into custom configuration file:
 ```
 cd /apps/aces-frontend
 cp src/environments/environment.prod.ts src/environments/environment.custom.ts
 ```
-If using an Ethereum Testnet, copy the following into `/apps/aces-frontend/src/environments/environment.custom.ts`:
+If using an Ethereum Testnet, copy the following into /apps/aces-frontend/src/environments/environment.custom.ts, making sure to replace localhost with your server ip, if applicable.
 ```
 vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
@@ -267,7 +266,7 @@ export const environment = {
   acesApiBaseUrl: 'http://localhost/aces-api'
 };
 ```
-If using the Ethereum Mainnet, copy the following into /apps/aces-frontend/aces-app/src/environments/environment.custom.ts:
+If using an Ethereum Mainnet, copy the following into /apps/aces-frontend/src/environments/environment.custom.ts, making sure to replace localhost with your server ip, if applicable.
 ```
 vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
