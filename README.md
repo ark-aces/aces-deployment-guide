@@ -289,34 +289,10 @@ cd /apps/aces-frontend
 npm install -g @angular/cli
 npm install
 ```
-Update the baseURL in the front-end config, replacing the aces-ark.io url with your server ip.
-```
-vim /apps/aces-frontend/src/app/aces-server-config.ts
-```
-
-It should appear something like this:
-```
-
-export abstract class AcesServerConfig {
-  abstract getBaseUrl(): string;
-}
-
-export class ProdAcesServerConfig extends AcesServerConfig {
-  getBaseUrl() {
-    return 'http://23.92.18.143/aces-api';
-  }
-}
-
-export class LocalAcesServerConfig extends AcesServerConfig {
-  getBaseUrl() {
-    return 'http://localhost:8080';
-  }
-}
-```
 
 Build the application
 ```
-ng build --target=production --base-href /aces-app/
+ng build --target=production --env=custom --base-href /aces-app/
 ```
 
 6. Set up nginx web server
