@@ -132,9 +132,8 @@ Install the application under `/apps`:
 
 ```
 sudo mkdir /apps
-sudo mkdir /apps/aces-backend
-cd /apps/aces-backend
-git clone https://github.com/bradyo/ark-java-smart-bridge-listener.git
+cd /apps
+git clone https://github.com/ark-aces/aces-backend.git
 ```
 
 Install application.yml configuration file under `/etc/aces-backend`:
@@ -144,7 +143,7 @@ mkdir /etc/aces-backend
 ```
 
 Copy `src/main/resources/application.yml` file over into `/etc/aces-backend` and replace
-wallet configurations with your own Eth and Ark wallet addresses and passphrase. Ensure that the etheruem address is quoted.
+wallet configurations with your own Ethereum and Ark addresses and passphrases/passwords. Ensure that the values remain quoted.
 
 ```
 vim /etc/aces-backend/application.yml
@@ -217,7 +216,7 @@ Description=Aces Backend
 
 [Service]
 Restart=always
-WorkingDirectory=/apps/aces-backend/ark-java-smart-bridge-listener
+WorkingDirectory=/apps/aces-backend
 ExecStart=/usr/bin/mvn spring-boot:run -Dspring.config.location=file:/etc/aces-backend/application.yml
 
 [Install]
@@ -226,7 +225,7 @@ WantedBy=multi-user.target
 Install npm dependencies:
 
 ```
-cd /apps/aces-backend/ark-java-smart-bridge-listener/bin
+cd /apps/aces-backend/bin
 npm install
 ```
 
@@ -243,21 +242,17 @@ sudo service aces-backend start
 Install the application under `/apps`:
 
 ```
-sudo mkdir /apps/aces-frontend
-cd /apps/aces-frontend
-git clone https://github.com/bradyo/aces-app.git
+cd /apps
+git clone https://github.com/ark-aces/aces-frontend.git
 ```
-todo: set up api url via config and point that to the backend-api
-  https://github.com/bradyo/aces-app/blob/master/src/app/aces-server-config.ts#L8
-
 Copy prod configuration template into custom configuration file:
 ```
-cd /apps/aces-frontend/aces-app
+cd /apps/aces-frontend
 cp src/environments/environment.prod.ts src/environments/environment.custom.ts
 ```
-If using an Ethereum Testnet, copy the following into `/apps/aces-frontend/aces-app/src/environments/environment.custom.ts`:
+If using an Ethereum Testnet, copy the following into /apps/aces-frontend/src/environments/environment.custom.ts, making sure to replace localhost with your server ip, if applicable.
 ```
-vim /apps/aces-frontend/aces-app/src/environments/environment.custom.ts
+vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
 ```
 export const environment = {
@@ -271,9 +266,9 @@ export const environment = {
   acesApiBaseUrl: 'http://localhost/aces-api'
 };
 ```
-If using the Ethereum Mainnet, copy the following into /apps/aces-frontend/aces-app/src/environments/environment.custom.ts:
+If using an Ethereum Mainnet, copy the following into /apps/aces-frontend/src/environments/environment.custom.ts, making sure to replace localhost with your server ip, if applicable.
 ```
-vim /apps/aces-frontend/aces-app/src/environments/environment.custom.ts
+vim /apps/aces-frontend/src/environments/environment.custom.ts
 ```
 ```
 export const environment = {
@@ -289,38 +284,14 @@ export const environment = {
 Install angular for the front-end UI
 
 ```
-cd /apps/aces-frontend/aces-app
+cd /apps/aces-frontend
 npm install -g @angular/cli
 npm install
-```
-Update the baseURL in the front-end config, replacing the aces-ark.io url with your server ip.
-```
-vim /apps/aces-frontend/aces-app/src/app/aces-server-config.ts
-```
-
-It should appear something like this:
-```
-
-export abstract class AcesServerConfig {
-  abstract getBaseUrl(): string;
-}
-
-export class ProdAcesServerConfig extends AcesServerConfig {
-  getBaseUrl() {
-    return 'http://23.92.18.143/aces-api';
-  }
-}
-
-export class LocalAcesServerConfig extends AcesServerConfig {
-  getBaseUrl() {
-    return 'http://localhost:8080';
-  }
-}
 ```
 
 Build the application
 ```
-ng build --target=production --base-href /aces-app/
+ng build --target=production --env=custom --base-href /aces-app/
 ```
 
 6. Set up nginx web server
@@ -338,7 +309,7 @@ Then add the snippet below under the `server` directive.
 
 ```
 location /aces-app/ {
-    alias /apps/aces-frontend/aces-app/dist/;
+    alias /apps/aces-frontend/dist/;
     try_files $uri $uri/ /aces-app/;
 }
 
