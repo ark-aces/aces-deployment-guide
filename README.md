@@ -143,7 +143,7 @@ mkdir /etc/aces-backend
 ```
 
 Copy `src/main/resources/application.yml` file over into `/etc/aces-backend` and replace
-wallet configurations with your own Ethereum and Ark addresses and passphrases/passwords. Ensure that the values remain quoted.
+wallet configurations with your own Ethereum and Ark addresses and passphrases/passwords. Ensure that the values remain quoted. If using mainnet, change `arkPerEthAdjustment: "100.00"` to `arkPerEthAdjustment: "1"`
 
 ```
 vim /etc/aces-backend/application.yml
