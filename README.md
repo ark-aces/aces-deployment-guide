@@ -259,8 +259,8 @@ export const environment = {
   production: true,
   title: 'Custom Ark Contract Execution Services (ACES)',
   isEthTestnet: true,
-  ethNetworkName: 'ropsten',
-  etherscanBaseUrl: 'https://ropsten.etherscan.io',
+  ethNetworkName: 'rinkeby',
+  etherscanBaseUrl: 'https://rinkeby.etherscan.io',
   ethArkRateFraction: '1/100',
   arkExplorerBaseUrl: 'https://explorer.ark.io',
   acesApiBaseUrl: 'http://localhost/aces-api'
